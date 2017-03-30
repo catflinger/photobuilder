@@ -10,6 +10,7 @@ namespace Photobuilder.Model
     {
         private DateTime _firstDayOfMonth;
         private AppSettings _settings;
+        private BuildStatus _bs;
 
         public List<DiaryWeek> weeks = new List<DiaryWeek>();
 
@@ -17,10 +18,11 @@ namespace Photobuilder.Model
 
         public int photoCount { get; private set; }
 
-        public DiaryMonth(AppSettings settings, DateTime firstDay)
+        public DiaryMonth(AppSettings settings, BuildStatus status, DateTime firstDay)
         {
             _settings = settings;
             _firstDayOfMonth = firstDay;
+            _bs = status;
 
             DateTime day = _firstDayOfMonth;
 
@@ -28,7 +30,7 @@ namespace Photobuilder.Model
             do
             {
                 //every month contains at least one week
-                DiaryWeek week = new DiaryWeek(_settings, day);
+                DiaryWeek week = new DiaryWeek(_settings, _bs, day);
                 weeks.Add(week);
 
                 //increment day
@@ -47,16 +49,12 @@ namespace Photobuilder.Model
             return photoCount;
         }
 
-        public int makeImages()
+        public void makeImages()
         {
-            int count = 0;
-
             foreach (DiaryWeek week in weeks)
             {
-                count += week.makeImages();
+                week.makeImages();
             }
-
-            return count;
         }
 
 

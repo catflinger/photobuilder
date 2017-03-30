@@ -14,13 +14,8 @@ namespace Photobuilder
 {
     public partial class Form1 : Form
     {
-        protected struct BuildResult
-        {
-            public int countFound;
-            public int countProcessed;
-        }
-
         private AppSettings _settings;
+        private BuildStatus _buildStatus;
 
         public Form1()
         {
@@ -30,9 +25,11 @@ namespace Photobuilder
             backgroundWorker1.DoWork += new DoWorkEventHandler(backgroundWorker1_DoWork);
             backgroundWorker1.RunWorkerCompleted += new RunWorkerCompletedEventHandler(backgroundWorker1_RunWorkerCompleted);
             backgroundWorker1.ProgressChanged += new ProgressChangedEventHandler(backgroundWorker1_ProgressChanged);
-        }
 
-        private void button1_Click(object sender, EventArgs e)
+            _buildStatus = new BuildStatus(backgroundWorker1);
+    }
+
+    private void button1_Click(object sender, EventArgs e)
         {
             buttonProcess.Enabled = false;
             buttonSettings.Enabled = false;
@@ -45,13 +42,13 @@ namespace Photobuilder
             DialogResult result = form.ShowDialog();
         }
 
-        private BuildResult makeDiary(BackgroundWorker worker)
+        private void makeDiary()
         {
-            BuildResult result = new BuildResult();
+            _buildStatus.reset();
 
             DiaryIndex oldIndex = new DiaryIndex(_settings);
             PhotoSource source = new PhotoSource(_settings, oldIndex);
-            Diary diary = new Diary(_settings);
+            Diary diary = new Diary(_settings, _buildStatus);
 
             //remove any existing output
             if (!_settings.incrementalProcessing)
@@ -69,19 +66,13 @@ namespace Photobuilder
             diary.buildIndex(yearList);
 
             //match up the photos to the days in the diary
-            result.countFound = diary.addPhotos(source.photos);
-
-            worker.ReportProgress(0, result);
+            diary.addPhotos(source.photos);
 
             //make web images from the source photos for the output and index them
-            result.countProcessed = diary.makeImages(source.photos);
-
-            worker.ReportProgress(100, result);
+            diary.makeImages(source.photos);
 
             //create and save the index file
             DiaryIndex.saveIndex(_settings, diary);
-
-            return result;
         }
 
         // This event handler is where the actual diary building happens
@@ -90,9 +81,7 @@ namespace Photobuilder
             // Get the BackgroundWorker that raised this event.
             BackgroundWorker worker = sender as BackgroundWorker;
 
-            // Assign the result of the computation to the Result property of the DoWorkEventArgs
-            // This is will be available to the RunWorkerCompleted eventhandler.
-            e.Result = makeDiary(worker);
+            makeDiary();
         }
 
         // This event handler deals with the results of the background operation.
@@ -105,15 +94,11 @@ namespace Photobuilder
             }
             else if (e.Cancelled)
             {
-                MessageBox.Show("Build Canceled");
+                MessageBox.Show("Build Cancelled");
             }
             else
             {
-                // Finally, handle the case where the build succeeded.
-                BuildResult result = (BuildResult)e.Result;
-
-                txtFound.Text = result.countFound.ToString();
-                txtProcessed.Text = result.countProcessed.ToString();
+                MessageBox.Show("Build Completed");
             }
 
             // Enable the Start button.
@@ -125,8 +110,8 @@ namespace Photobuilder
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             BuildResult result = (BuildResult)e.UserState;
-            txtFound.Text = result.countFound.ToString();
-            txtProcessed.Text = result.countProcessed.ToString();
+            txtFound.Text = result.photosFound.ToString();
+            txtProcessed.Text = result.photosProcessed.ToString();
 
             this.progressBar1.Value = e.ProgressPercentage;
         }

@@ -11,6 +11,8 @@ namespace Photobuilder.Model
     class DiaryWeek
     {
         private AppSettings _settings;
+        private BuildStatus _bs;
+
         private DateTime _baseDay;  //the day used to identify the week
         private DateTime _firstDay; //the first day of the calendar week contining the base day
 
@@ -19,11 +21,13 @@ namespace Photobuilder.Model
         //indicates that the week contains at least one a user-submitted photo
         public int photoCount { get; private set; }
 
-        public DiaryWeek(AppSettings settings, DateTime day)
+        public DiaryWeek(AppSettings settings, BuildStatus status, DateTime day)
         {
             _baseDay = day;
             _firstDay = day;
             _settings = settings;
+            _bs = status;
+
             photoCount = 0;
 
             //step backwards to find the first day of the calendar week 
@@ -43,7 +47,7 @@ namespace Photobuilder.Model
                 //an inactive day represents a placeholder on the calendar
                 bool active = d.Month == _baseDay.Month;
 
-                days.Add(new DiaryDay(_settings, d, active));
+                days.Add(new DiaryDay(_settings, _bs, d, active));
             }
         }
 
@@ -62,16 +66,12 @@ namespace Photobuilder.Model
             return photoCount;
         }
 
-        public int makeImages()
+        public void makeImages()
         {
-            photoCount = 0;
-
             foreach (DiaryDay day in days)
             {
-                photoCount += day.makeImages();
+                day.makeImages();
             }
-
-            return photoCount;
         }
 
         public JObject toJson()

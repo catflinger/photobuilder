@@ -10,8 +10,8 @@ namespace Photobuilder.Model
 {
     class BlankImage : DiaryImageBase
     {
-        public BlankImage(AppSettings settings)
-            : base(settings, "blank.jpg")
+        public BlankImage(AppSettings settings, BuildStatus status)
+            : base(settings, status, "blank.jpg")
         {
         }
 

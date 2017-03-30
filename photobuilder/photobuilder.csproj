@@ -62,6 +62,7 @@
       <DependentUpon>FormSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\BlankImage.cs" />
+    <Compile Include="Model\BuildStatus.cs" />
     <Compile Include="Model\Diary.cs" />
     <Compile Include="Model\DiaryDay.cs" />
     <Compile Include="Model\DiaryImageBase.cs" />

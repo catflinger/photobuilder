@@ -14,18 +14,20 @@ namespace Photobuilder.Model
     class Diary
     {
         private AppSettings _settings;
+        private BuildStatus _bs;
         public List<DiaryYear> years { get; private set; }
 
         private BlankImage _blank;
         private PlaceholderImage _placeholder;
 
-        public Diary(AppSettings settings)
+        public Diary(AppSettings settings, BuildStatus status)
         {
             _settings = settings;
+            _bs = status;
 
             years = new List<DiaryYear>();
-            _blank = new BlankImage(_settings);
-            _placeholder = new PlaceholderImage(_settings);
+            _blank = new BlankImage(_settings, _bs);
+            _placeholder = new PlaceholderImage(_settings, _bs);
         }
 
         public void cleanOutputFolders()
@@ -43,37 +45,29 @@ namespace Photobuilder.Model
             //create an empty index in the form of a calendar covering the requested years
             foreach (var year in yearList)
             {
-                years.Add(new DiaryYear(_settings, year));
+                years.Add(new DiaryYear(_settings, _bs, year));
             }
         }
 
-        public int addPhotos(IEnumerable<Photo> photos)
+        public void addPhotos(IEnumerable<Photo> photos)
         {
-            int photoCount = 0;
-
-
             //go through the calendar day-by-day and look for photos
             foreach (DiaryYear year in years)
             {
-                photoCount += year.addPhotos(photos);
+                year.addPhotos(photos);
             }
-            return photoCount;
         }
 
-        public int makeImages(IEnumerable<Photo> photos)
+        public void makeImages(IEnumerable<Photo> photos)
         {
-            int count = 0;
-
             //make web-friendly images for each photo
             _blank.makeImages();
             _placeholder.makeImages();
 
             foreach (DiaryYear year in years)
             {
-                count += year.makeImages();
+                year.makeImages();
             }
-
-            return count;
         }
 
         public JObject toJson()

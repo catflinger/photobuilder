@@ -11,8 +11,8 @@ namespace Photobuilder.Model
 {
     class PlaceholderImage : DiaryImageBase
     {
-        public PlaceholderImage(AppSettings settings)
-            : base(settings, "placeholder.jpg")
+        public PlaceholderImage(AppSettings settings, BuildStatus status)
+            : base(settings, status, "placeholder.jpg")
         {
         }
 

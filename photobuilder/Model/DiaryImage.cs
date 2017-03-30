@@ -15,13 +15,20 @@ namespace Photobuilder.Model
     class DiaryImage : DiaryImageBase
     {
         private Photo _photo;
+        public bool skipProcessing { get; private set; }
 
         //md5 hash of the source file used to create these images
         protected string hash { get; private set; }
 
-        public DiaryImage(AppSettings settings, Photo photo) 
-            : base(settings, photo.date.ToString("yyyyMMdd") + ".jpg") {
+        public DiaryImage(AppSettings settings, BuildStatus status, Photo photo) 
+            : base(settings, status, photo.date.ToString("yyyyMMdd") + ".jpg") {
             _photo = photo;
+
+            //first see if we can use a cached version from the previous build
+            skipProcessing = settings.incrementalProcessing &&
+                            _photo.hashCurrent == _photo.hashPrev &&
+                            File.Exists(pathLarge) &&
+                            File.Exists(pathThumb);
         }
 
         public override JObject toJson()
@@ -37,14 +44,7 @@ namespace Photobuilder.Model
         //make images for this photo, retun the number of photos processed (will be 0 or 1 for this class)
         public override int makeImages()
         {
-            bool skipProcessing;
             int count = 0;
-
-            //first see if we can use a cached version from the previous build
-            skipProcessing = settings.incrementalProcessing &&
-                            _photo.hashCurrent == _photo.hashPrev &&
-                            File.Exists(pathLarge) &&
-                            File.Exists(pathThumb);
 
             if (skipProcessing)
             {
@@ -71,6 +71,7 @@ namespace Photobuilder.Model
                 hash = Photo.getMD5Hash(_photo.path);
 
                 count = 1;
+                status.photoProcessed();
             }
 
             return count;

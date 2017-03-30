@@ -12,13 +12,13 @@ namespace Photobuilder.Model
         public List<DiaryMonth> months = new List<DiaryMonth>();
         public int photoCount { get; private set; }
 
-        public DiaryYear(AppSettings settings, int year)
+        public DiaryYear(AppSettings settings, BuildStatus status, int year)
         {
             this.yearNumber = year;
 
             for (int n = 1;  n <= 12; n++)
             {
-                months.Add(new DiaryMonth(settings, new DateTime(year, n, 1)));
+                months.Add(new DiaryMonth(settings, status, new DateTime(year, n, 1)));
             } 
         }
 
@@ -32,16 +32,12 @@ namespace Photobuilder.Model
             return photoCount;
         }
 
-        public int makeImages()
+        public void makeImages()
         {
-            int count = 0;
-
             foreach (DiaryMonth month in months)
             {
-                count += month.makeImages();
+                month.makeImages();
             }
-
-            return count;
         }
 
 

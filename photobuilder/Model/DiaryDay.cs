@@ -10,6 +10,7 @@ namespace Photobuilder.Model
     class DiaryDay
     {
         private AppSettings _settings;
+        private BuildStatus _bs;
 
         //the date that this day object represents.  Note that there can be more than one day object
         //for a given date: see the active property below.
@@ -27,9 +28,10 @@ namespace Photobuilder.Model
 
         public string name { get { return _day.DayOfWeek.ToString(); } }
 
-        public DiaryDay(AppSettings settings, DateTime day, bool active)
+        public DiaryDay(AppSettings settings, BuildStatus status, DateTime day, bool active)
         {
             _settings = settings;
+            _bs = status;
             _day = day;
             this.active = active;
             image = null;
@@ -38,38 +40,45 @@ namespace Photobuilder.Model
 
         public int addPhotos(IEnumerable<Photo> photos)
         {
+            int count = 0;
+
             if (active)
             {
                 Photo photo = photos.FirstOrDefault(p => p.date.Date == _day.Date);
 
                 if (photo != null)
                 {
-                    image = new DiaryImage(_settings, photo);
+                    DiaryImage img = new DiaryImage(_settings, _bs, photo);
                     hasContent = true;
+                    _bs.foundPhoto();
+
+                    if (!img.skipProcessing)
+                    {
+                        _bs.photoToProcess();
+                    }
+
+                    image = img;
+                    count++;
                 }
                 else
                 {
-                    image = new BlankImage(_settings);
+                    image = new BlankImage(_settings, _bs);
                 }
             }
             else
             {
-                image = new PlaceholderImage(_settings);
-            }
-
-            return hasContent ? 1 : 0;
-        }
-
-        public int makeImages()
-        {
-            int count = 0;
-
-            if (hasContent)
-            {
-                count += image.makeImages();
+                image = new PlaceholderImage(_settings, _bs);
             }
 
             return count;
+        }
+
+        public void makeImages()
+        {
+            if (hasContent)
+            {
+                image.makeImages();
+            }
         }
 
 

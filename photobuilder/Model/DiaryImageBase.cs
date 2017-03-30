@@ -17,15 +17,17 @@ namespace Photobuilder.Model
     abstract class DiaryImageBase
     {
         protected AppSettings settings { get; private set; }
+        protected BuildStatus status { get; private set; }
         protected string filename { get; private set; }
 
         //full path and name for output files
         protected string pathLarge { get { return String.Format("{0}/large/{1}", settings.distFolder, filename); } }
         protected string pathThumb { get { return String.Format("{0}/thumb/{1}", settings.distFolder, filename); } }
 
-        public DiaryImageBase(AppSettings settings, string filename)
+        public DiaryImageBase(AppSettings settings, BuildStatus status, string filename)
         {
             this.settings = settings;
+            this.status = status;
             this.filename = filename;
         }
 
