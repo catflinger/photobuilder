@@ -62,12 +62,16 @@ namespace Photobuilder.Model
             return photoCount;
         }
 
-        public void makeImages()
+        public int makeImages()
         {
+            photoCount = 0;
+
             foreach (DiaryDay day in days)
             {
-                day.makeImages();
+                photoCount += day.makeImages();
             }
+
+            return photoCount;
         }
 
         public JObject toJson()

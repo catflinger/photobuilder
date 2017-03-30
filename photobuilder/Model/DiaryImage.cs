@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,27 +16,64 @@ namespace Photobuilder.Model
     {
         private Photo _photo;
 
+        //md5 hash of the source file used to create these images
+        protected string hash { get; private set; }
+
         public DiaryImage(AppSettings settings, Photo photo) 
             : base(settings, photo.date.ToString("yyyyMMdd") + ".jpg") {
             _photo = photo;
         }
 
-        public override void makeImages()
+        public override JObject toJson()
         {
-            //load the source image
-            Bitmap source = (Bitmap)Image.FromFile(_photo.path);
+            JObject result = base.toJson();
 
-            //rotate or flip the image to match the embedded exif data
-            fixExifRotation(source);
+            result.Add(
+                new JProperty("hash", hash));
 
-            //make the thumbnail
-            //Image thumb = source.GetThumbnailImage(_settings.thumbWidth, _settings.thumbHeight, new Image.GetThumbnailImageAbort(callback), IntPtr.Zero);
-            Image thumb = makeThumbnailImage(source);
-            saveImage(thumb, pathThumb, settings.thumbQuality);
+            return result;
+        }
 
-            //make the large image
-            Bitmap large = resizeImage(source, settings.largeHeight);
-            saveImage(large, pathLarge, settings.largeQuality);
+        //make images for this photo, retun the number of photos processed (will be 0 or 1 for this class)
+        public override int makeImages()
+        {
+            bool skipProcessing;
+            int count = 0;
+
+            //first see if we can use a cached version from the previous build
+            skipProcessing = settings.incrementalProcessing &&
+                            _photo.hashCurrent == _photo.hashPrev &&
+                            File.Exists(pathLarge) &&
+                            File.Exists(pathThumb);
+
+            if (skipProcessing)
+            {
+                //original has not changed, two processed files are present
+                //skip this photo and save the old hash value
+                hash = _photo.hashPrev;
+            }
+            else
+            {
+                //load the source image
+                Bitmap source = (Bitmap)Image.FromFile(_photo.path);
+
+                //rotate or flip the image to match the embedded exif data
+                fixExifRotation(source);
+
+                //make the thumbnail
+                Image thumb = makeThumbnailImage(source);
+                saveImage(thumb, pathThumb, settings.thumbQuality);
+
+                //make the large image
+                Bitmap large = resizeImage(source, settings.largeHeight);
+                saveImage(large, pathLarge, settings.largeQuality);
+
+                hash = Photo.getMD5Hash(_photo.path);
+
+                count = 1;
+            }
+
+            return count;
         }
 
         protected Bitmap makeThumbnailImage(Image source)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -19,6 +20,12 @@ namespace Photobuilder.Model
         //path to the source photo in the file system
         public string path { get; private set; }
         
+        //the md5 hash of the current version of the photo
+        public string hashCurrent { get; private set; }
+
+        //the md5 hash of the photo used in the previous build
+        public string hashPrev { get; set; }
+
         //the date that this photo is for
         public DateTime date { get; private set; }
 
@@ -50,10 +57,19 @@ namespace Photobuilder.Model
                                     out dt))
                 {
                     result = new Photo(fi.FullName, dt);
+                    result.hashCurrent = getMD5Hash(fi.FullName);
                 }
             }
 
             return result;
+        }
+
+        public static string getMD5Hash(string filename)
+        {
+            byte[] data = File.ReadAllBytes(filename);
+            byte[] hash = MD5.Create().ComputeHash(data);
+
+            return Convert.ToBase64String(hash);
         }
     }
 }

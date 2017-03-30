@@ -60,12 +60,16 @@ namespace Photobuilder.Model
             return hasContent ? 1 : 0;
         }
 
-        public void makeImages()
+        public int makeImages()
         {
+            int count = 0;
+
             if (hasContent)
             {
-                image.makeImages();
+                count += image.makeImages();
             }
+
+            return count;
         }
 
 

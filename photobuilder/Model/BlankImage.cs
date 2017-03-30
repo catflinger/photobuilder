@@ -15,7 +15,7 @@ namespace Photobuilder.Model
         {
         }
 
-        public override void makeImages()
+        public override int makeImages()
         {
             Bitmap bmp;
 
@@ -27,6 +27,8 @@ namespace Photobuilder.Model
             double aspectRatio = 1.5;
             bmp = makeBlank((int)(settings.largeHeight * aspectRatio), settings.largeHeight);
             saveImage(bmp, pathLarge, settings.largeQuality);
+
+            return 1;
         }
 
         private Bitmap makeBlank(int width, int height)

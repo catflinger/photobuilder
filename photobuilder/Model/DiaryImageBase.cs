@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,16 +29,15 @@ namespace Photobuilder.Model
             this.filename = filename;
         }
 
-        public abstract void makeImages();
+        public abstract int makeImages();
 
-        public JObject toJson()
+        public virtual JObject toJson()
         {
             return new JObject(
                 new JProperty("large", String.Format("large/{0}", filename)),
                 new JProperty("thumb", String.Format("thumb/{0}", filename)),
                 new JProperty("caption", ""));
         }
-
 
         protected void saveImage(Image image, String path, long quality = 100L)
         {

@@ -8,7 +8,7 @@ namespace Photobuilder
     {
         public string indexFile
         {
-            get { return "diary.json"; }
+            get { return String.Format("{0}/diary.json", distFolder); }
         }
 
         [UserScopedSetting()]

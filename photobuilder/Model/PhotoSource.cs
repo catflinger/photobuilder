@@ -11,13 +11,15 @@ namespace Photobuilder.Model
     {
         private AppSettings _settings;
         private IList<Photo> _photos;
+        private DiaryIndex _prevIndex;
 
         public IEnumerable<Photo> photos { get { return _photos; } }
 
-        public PhotoSource(AppSettings settings)
+        public PhotoSource(AppSettings settings, DiaryIndex index)
         {
             _settings = settings;
             _photos = new List<Photo>();
+            _prevIndex = index;
         }
 
         public void loadPhotos() {
@@ -40,9 +42,13 @@ namespace Photobuilder.Model
             {
                 Photo photo = Photo.fromFileInfo(fi);
 
-                //check that this is a suitably named file
+                //check that this was a suitably named file
                 if (photo != null)
                 {
+                    if (_prevIndex != null)
+                    {
+                        photo.hashPrev = _prevIndex.getHashForDay(photo.date);
+                    }
                     _photos.Add(photo);
                 }
             }

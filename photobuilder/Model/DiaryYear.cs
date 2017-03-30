@@ -32,12 +32,16 @@ namespace Photobuilder.Model
             return photoCount;
         }
 
-        public void makeImages()
+        public int makeImages()
         {
+            int count = 0;
+
             foreach (DiaryMonth month in months)
             {
-                month.makeImages();
+                count += month.makeImages();
             }
+
+            return count;
         }
 
 

@@ -19,7 +19,6 @@ namespace Photobuilder.Model
         private BlankImage _blank;
         private PlaceholderImage _placeholder;
 
-
         public Diary(AppSettings settings)
         {
             _settings = settings;
@@ -27,9 +26,9 @@ namespace Photobuilder.Model
             years = new List<DiaryYear>();
             _blank = new BlankImage(_settings);
             _placeholder = new PlaceholderImage(_settings);
-    }
+        }
 
-    public void cleanOutputFolders()
+        public void cleanOutputFolders()
         {
             //clear any existing content from the output folder
             cleanFolder(_settings.distFolder);
@@ -61,58 +60,29 @@ namespace Photobuilder.Model
             return photoCount;
         }
 
-        public void makeImages(IEnumerable<Photo> photos)
+        public int makeImages(IEnumerable<Photo> photos)
         {
+            int count = 0;
+
             //make web-friendly images for each photo
             _blank.makeImages();
             _placeholder.makeImages();
 
             foreach (DiaryYear year in years)
             {
-                year.makeImages();
+                count += year.makeImages();
             }
-        }
-        public void makeIndex()
-        {
-            //create a JSON container object
-            JObject jo = new JObject(
-                //version of this file format
-                new JProperty("version", "1.0"),
 
-                //encode the settings as JSON
-                new JProperty("settings", new JObject(
-
-                    new JProperty("thumb",
-                        new JObject(
-                            new JProperty("path", "thumb"),
-                            new JProperty("width", _settings.thumbWidth),
-                            new JProperty("height", _settings.thumbHeight))),
-
-                    new JProperty("large",
-                        new JObject(
-                            new JProperty("path", "large"),
-                            new JProperty("height", _settings.largeHeight))))),
-
-                //encode the index as JSON
-                new JProperty("index",
-                    new JObject(
-                        new JProperty("blank", _blank.toJson()),
-                        new JProperty("placeholder", _placeholder.toJson()),
-                        new JProperty("years",
-                            new JArray(years.Select(y => y.toJson()))))));
-
-            string indexFile = String.Format("{0}/{1}", _settings.distFolder, _settings.indexFile);
-
-            //save it all to disk
-            File.WriteAllText(
-                indexFile,
-                jo.ToString(Newtonsoft.Json.Formatting.Indented));
-
+            return count;
         }
 
-        private JObject toJson()
+        public JObject toJson()
         {
-            return new JObject();
+            return new JObject(
+                new JProperty("blank", _blank.toJson()),
+                new JProperty("placeholder", _placeholder.toJson()),
+                new JProperty("years",
+                    new JArray(years.Select(y => y.toJson()))));
         }
 
 

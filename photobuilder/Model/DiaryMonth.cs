@@ -47,12 +47,16 @@ namespace Photobuilder.Model
             return photoCount;
         }
 
-        public void makeImages()
+        public int makeImages()
         {
+            int count = 0;
+
             foreach (DiaryWeek week in weeks)
             {
-                week.makeImages();
+                count += week.makeImages();
             }
+
+            return count;
         }
 
 
