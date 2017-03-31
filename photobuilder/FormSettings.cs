@@ -63,44 +63,53 @@ namespace Photobuilder
 
             if (txtSourceFolder.Text.ToLower() != txtDistFolder.Text.ToLower())
             {
-
-                if (
-                    Directory.Exists(txtDistFolder.Text) &&
-                    Directory.Exists(txtDistFolder.Text + @"\large") &&
-                    Directory.Exists(txtDistFolder.Text + @"\thumb") &&
-                    Directory.Exists(txtSourceFolder.Text)
-                    )
+                if (Directory.Exists(txtSourceFolder.Text))
                 {
-                    int.TryParse(txtThumbWidth.Text, out thumbWidth);
-                    int.TryParse(txtThumbHeight.Text, out thumbHeight);
-                    int.TryParse(txtLargeHeight.Text, out largeHeight);
-
-                    if(thumbWidth > 0 && thumbHeight > 0 && largeHeight > 0)
+                    if (Directory.Exists(txtDistFolder.Text))
                     {
-                        //save the settings
-                        _settings.sourceFolder = txtSourceFolder.Text;
-                        _settings.thumbWidth = thumbWidth;
-                        _settings.thumbHeight = thumbHeight;
-                        _settings.largeHeight = largeHeight;
+                        if (Directory.Exists(txtDistFolder.Text + @"\large") && Directory.Exists(txtDistFolder.Text + @"\thumb"))
+                        {
+                            int.TryParse(txtThumbWidth.Text, out thumbWidth);
+                            int.TryParse(txtThumbHeight.Text, out thumbHeight);
+                            int.TryParse(txtLargeHeight.Text, out largeHeight);
 
-                        _settings.thumbQuality = (long)nudQualityThumb.Value;
+                            if(thumbWidth > 0 && thumbHeight > 0 && largeHeight > 0)
+                            {
+                                //save the settings
+                                _settings.sourceFolder = txtSourceFolder.Text;
+                                _settings.distFolder = txtDistFolder.Text;
+                                _settings.thumbWidth = thumbWidth;
+                                _settings.thumbHeight = thumbHeight;
+                                _settings.largeHeight = largeHeight;
 
-                        _settings.incrementalProcessing = chkIncremental.Checked;
+                                _settings.thumbQuality = (long)nudQualityThumb.Value;
 
-                        _settings.Save();
+                                _settings.incrementalProcessing = chkIncremental.Checked;
 
-                        //show message and restart
-                        this.DialogResult = DialogResult.OK;
-                        Close();
+                                _settings.Save();
+
+                                //show message and restart
+                                this.DialogResult = DialogResult.OK;
+                                Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Image sizes must be whole numbers greater than zero");
+                            }
+                        }
+                        else 
+                        {
+                            MessageBox.Show("Distribution folder does not contain subfolders /large and /thumb");
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Image sizes must be whole numbers greater than zero");
+                        MessageBox.Show("Cannot access dist folder");
                     }
                 }
-                else 
+                else
                 {
-                    MessageBox.Show("Selected folder does not contain one or more of the following folders: /source /dist /dist/large /dist/small /dist/thumb");
+                    MessageBox.Show("Cannot access source folder");
                 }
             }
             else
