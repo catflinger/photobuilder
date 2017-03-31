@@ -40,7 +40,8 @@ namespace Photobuilder.Model
 
             using (Graphics graph = Graphics.FromImage(bmp))
             {
-                graph.FillRectangle(Brushes.White, size);
+                Brush brush = new SolidBrush(ColorTranslator.FromHtml(settings.placeholderColor));
+                graph.FillRectangle(brush, size);
             }
 
             return bmp;

@@ -34,5 +34,9 @@ namespace Photobuilder
         public bool incrementalProcessing => appSettings.incrementalProcessing;
 
         public DayOfWeek FirstDayOfWeek => appSettings.FirstDayOfWeek;
+
+        public string blankColor => appSettings.BlankColor;
+
+        public string placeholderColor => appSettings.PlaceholderColor;
     }
 }

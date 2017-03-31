@@ -52,6 +52,13 @@
             this.btnSearchDist = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.comboDayOfWeek = new System.Windows.Forms.ComboBox();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.panelBlank = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.buttonBlank = new System.Windows.Forms.Button();
+            this.buttonPlaceholder = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.panelPlaceholder = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.nudQualityThumb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudQualityLarge)).BeginInit();
             this.SuspendLayout();
@@ -68,7 +75,7 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(213, 246);
+            this.btnOK.Location = new System.Drawing.Point(422, 270);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 34);
             this.btnOK.TabIndex = 2;
@@ -78,7 +85,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(307, 245);
+            this.btnCancel.Location = new System.Drawing.Point(516, 269);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(70, 35);
             this.btnCancel.TabIndex = 3;
@@ -271,11 +278,69 @@
             this.comboDayOfWeek.Size = new System.Drawing.Size(121, 21);
             this.comboDayOfWeek.TabIndex = 33;
             // 
+            // panelBlank
+            // 
+            this.panelBlank.Location = new System.Drawing.Point(146, 220);
+            this.panelBlank.Name = "panelBlank";
+            this.panelBlank.Size = new System.Drawing.Size(120, 29);
+            this.panelBlank.TabIndex = 34;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(36, 230);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(97, 13);
+            this.label7.TabIndex = 35;
+            this.label7.Text = "Blank image colour";
+            // 
+            // buttonBlank
+            // 
+            this.buttonBlank.Location = new System.Drawing.Point(281, 224);
+            this.buttonBlank.Name = "buttonBlank";
+            this.buttonBlank.Size = new System.Drawing.Size(24, 24);
+            this.buttonBlank.TabIndex = 36;
+            this.buttonBlank.Text = "...";
+            this.buttonBlank.UseVisualStyleBackColor = true;
+            this.buttonBlank.Click += new System.EventHandler(this.buttonBlank_Click);
+            // 
+            // buttonPlaceholder
+            // 
+            this.buttonPlaceholder.Location = new System.Drawing.Point(281, 264);
+            this.buttonPlaceholder.Name = "buttonPlaceholder";
+            this.buttonPlaceholder.Size = new System.Drawing.Size(24, 24);
+            this.buttonPlaceholder.TabIndex = 39;
+            this.buttonPlaceholder.Text = "...";
+            this.buttonPlaceholder.UseVisualStyleBackColor = true;
+            this.buttonPlaceholder.Click += new System.EventHandler(this.buttonPlaceholder_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(36, 269);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(95, 13);
+            this.label8.TabIndex = 38;
+            this.label8.Text = "Placeholder colour";
+            // 
+            // panelPlaceholder
+            // 
+            this.panelPlaceholder.Location = new System.Drawing.Point(146, 260);
+            this.panelPlaceholder.Name = "panelPlaceholder";
+            this.panelPlaceholder.Size = new System.Drawing.Size(120, 29);
+            this.panelPlaceholder.TabIndex = 37;
+            // 
             // FormSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(608, 316);
+            this.Controls.Add(this.buttonPlaceholder);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.panelPlaceholder);
+            this.Controls.Add(this.buttonBlank);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.panelBlank);
             this.Controls.Add(this.comboDayOfWeek);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtDistFolder);
@@ -335,5 +400,12 @@
         private System.Windows.Forms.Button btnSearchDist;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox comboDayOfWeek;
+        private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.Panel panelBlank;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button buttonBlank;
+        private System.Windows.Forms.Button buttonPlaceholder;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Panel panelPlaceholder;
     }
 }

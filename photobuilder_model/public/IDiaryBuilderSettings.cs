@@ -25,5 +25,9 @@ namespace Photobuilder.Model
         bool incrementalProcessing { get; }
 
         DayOfWeek FirstDayOfWeek { get; }
+
+        string blankColor { get; }
+
+        string placeholderColor { get; }
     }
 }

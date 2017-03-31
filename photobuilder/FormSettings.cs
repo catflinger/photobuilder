@@ -35,6 +35,12 @@ namespace Photobuilder
             nudQualityThumb.Value = _settings.thumbQuality;
             nudQualityLarge.Value = _settings.largeQuality;
             chkIncremental.Checked = _settings.incrementalProcessing;
+
+            Color color = ColorTranslator.FromHtml(_settings.BlankColor);
+            panelBlank.BackColor = color;
+
+            color = ColorTranslator.FromHtml(_settings.PlaceholderColor);
+            panelPlaceholder.BackColor = color;
         }
         private void btnSearch_Click(object sender, EventArgs e)
         {
@@ -91,6 +97,9 @@ namespace Photobuilder
 
                                 _settings.FirstDayOfWeek = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), comboDayOfWeek.SelectedValue.ToString());
 
+                                _settings.BlankColor = ColorTranslator.ToHtml(panelBlank.BackColor);
+                                _settings.PlaceholderColor = ColorTranslator.ToHtml(panelPlaceholder.BackColor);
+
                                 _settings.Save();
 
                                 //show message and restart
@@ -121,6 +130,30 @@ namespace Photobuilder
             {
                 MessageBox.Show("Source and destination folders cannot bethe same");
             }
+        }
+        private void buttonBlank_Click(object sender, EventArgs e)
+        {
+            chooseColour(panelBlank);
+        }
+
+        private void chooseColour(Panel panel)
+        {
+            ColorDialog dialog = new ColorDialog();
+
+            // Keeps the user from selecting a custom color.
+            dialog.AllowFullOpen = true;
+            
+            // Sets the initial color select to the current text color.
+            dialog.Color = panel.ForeColor;
+
+            // Update the text box color if the user clicks OK 
+            if (dialog.ShowDialog() == DialogResult.OK)
+                panel.BackColor = dialog.Color;
+        }
+
+        private void buttonPlaceholder_Click(object sender, EventArgs e)
+        {
+            chooseColour(panelPlaceholder);
         }
     }
 }

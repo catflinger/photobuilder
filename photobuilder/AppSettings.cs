@@ -73,5 +73,20 @@ namespace Photobuilder
             get { return (DayOfWeek)this["FirstDayOfWeek"]; }
             set { this["FirstDayOfWeek"] = value; }
         }
+        [UserScopedSetting()]
+        [DefaultSettingValue("#FFFFFF")]
+        public string BlankColor
+        {
+            get { return (string)this["BlankColor"]; }
+            set { this["BlankColor"] = value; }
+        }
+        [UserScopedSetting()]
+        [DefaultSettingValue("#FFFFFF")]
+        public string PlaceholderColor
+        {
+            get { return (string)this["PlaceholderColor"]; }
+            set { this["PlaceholderColor"] = value; }
+        }
+
     }
 }
