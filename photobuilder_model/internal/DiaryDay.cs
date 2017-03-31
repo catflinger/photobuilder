@@ -50,7 +50,6 @@ namespace Photobuilder.Model
                 {
                     DiaryImage img = new DiaryImage(_settings, _bs, photo);
                     hasContent = true;
-                    _bs.foundPhoto();
 
                     if (!img.skipProcessing)
                     {

@@ -13,8 +13,10 @@ namespace Photobuilder.Model
             buildStatus.reset();
 
             DiaryIndex oldIndex = new DiaryIndex(settings);
-            PhotoSource source = new PhotoSource(settings, oldIndex);
+            PhotoSource source = new PhotoSource(settings, buildStatus, oldIndex);
             Diary diary = new Diary(settings, buildStatus);
+
+            buildStatus.initialising();
 
             //remove any existing output
             if (!settings.incrementalProcessing)
@@ -22,8 +24,12 @@ namespace Photobuilder.Model
                 diary.cleanOutputFolders();
             }
 
+            buildStatus.scannig();
+
             //load the source photos off disk
             source.loadPhotos();
+
+            buildStatus.processing();
 
             //get a list of all the years that the source images span
             IEnumerable<int> yearList = source.getYearList();
@@ -39,6 +45,8 @@ namespace Photobuilder.Model
 
             //create and save the index file
             DiaryIndex.saveIndex(settings, diary);
+
+            buildStatus.finished();
         }
     }
 }

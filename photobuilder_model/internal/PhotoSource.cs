@@ -10,20 +10,22 @@ namespace Photobuilder.Model
     class PhotoSource
     {
         private IDiaryBuilderSettings _settings;
+        private DiaryBuildStatus _status;
         private IList<Photo> _photos;
         private DiaryIndex _prevIndex;
 
         public IEnumerable<Photo> photos { get { return _photos; } }
 
-        public PhotoSource(IDiaryBuilderSettings settings, DiaryIndex index)
+        public PhotoSource(IDiaryBuilderSettings settings, DiaryBuildStatus status, DiaryIndex index)
         {
             _settings = settings;
+            _status = status;
             _photos = new List<Photo>();
             _prevIndex = index;
         }
 
-        public void loadPhotos() {
-
+        public void loadPhotos()
+        {
             //make a list of photos in the source directory
             DirectoryInfo source = new DirectoryInfo(_settings.sourceFolder);
             getPhotos(source);
@@ -50,6 +52,7 @@ namespace Photobuilder.Model
                         photo.hashPrev = _prevIndex.getHashForDay(photo.date);
                     }
                     _photos.Add(photo);
+                    _status.foundPhoto();
                 }
             }
 
