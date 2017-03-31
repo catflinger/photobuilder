@@ -12,7 +12,7 @@ namespace Photobuilder.Model
         public List<DiaryMonth> months = new List<DiaryMonth>();
         public int photoCount { get; private set; }
 
-        public DiaryYear(AppSettings settings, BuildStatus status, int year)
+        public DiaryYear(IDiaryBuilderSettings settings, DiaryBuildStatus status, int year)
         {
             this.yearNumber = year;
 

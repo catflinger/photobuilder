@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Photobuilder.Model
 {
-    class PlaceholderImage : DiaryImageBase
+    class DiaryImagePlaceholder : DiaryImageBase
     {
-        public PlaceholderImage(AppSettings settings, BuildStatus status)
+        public DiaryImagePlaceholder(IDiaryBuilderSettings settings, DiaryBuildStatus status)
             : base(settings, status, "placeholder.jpg")
         {
         }

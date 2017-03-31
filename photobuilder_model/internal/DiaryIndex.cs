@@ -10,12 +10,12 @@ namespace Photobuilder.Model
 {
     class DiaryIndex
     {
-        //private AppSettings _settings;
+        //private DiaryBuilderSettings _settings;
         private JObject _jRoot;
 
         public bool isLoaded { get { return _jRoot != null; } }
 
-        public DiaryIndex(AppSettings settings)
+        public DiaryIndex(IDiaryBuilderSettings settings)
         {
             //_settings = settings;
             try
@@ -29,7 +29,7 @@ namespace Photobuilder.Model
             }
         }
 
-        public static void saveIndex(AppSettings settings, Diary diary)
+        public static void saveIndex(IDiaryBuilderSettings settings, Diary diary)
         {
             //create a JSON container object
             JObject jIndex = new JObject(

@@ -32,9 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppSettings.cs" />
+    <Compile Include="BuildSettings.cs" />
+    <Compile Include="BuildStatus.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -61,19 +60,6 @@
     <Compile Include="FormSettings.Designer.cs">
       <DependentUpon>FormSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\BlankImage.cs" />
-    <Compile Include="Model\BuildStatus.cs" />
-    <Compile Include="Model\Diary.cs" />
-    <Compile Include="Model\DiaryDay.cs" />
-    <Compile Include="Model\DiaryImageBase.cs" />
-    <Compile Include="Model\DiaryIndex.cs" />
-    <Compile Include="Model\DiaryMonth.cs" />
-    <Compile Include="Model\DiaryImage.cs" />
-    <Compile Include="Model\DiaryWeek.cs" />
-    <Compile Include="Model\DiaryYear.cs" />
-    <Compile Include="Model\Photo.cs" />
-    <Compile Include="Model\PhotoSource.cs" />
-    <Compile Include="Model\PlaceholderImage.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -106,6 +92,14 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Model\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\photobuilder_model\photobuilder_model.csproj">
+      <Project>{a216ffd6-bc32-4e77-a941-eb193c039c6e}</Project>
+      <Name>photobuilder_model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

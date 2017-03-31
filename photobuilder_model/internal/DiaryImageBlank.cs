@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Photobuilder.Model
 {
-    class BlankImage : DiaryImageBase
+    class DiaryImageBlank : DiaryImageBase
     {
-        public BlankImage(AppSettings settings, BuildStatus status)
+        public DiaryImageBlank(IDiaryBuilderSettings settings, DiaryBuildStatus status)
             : base(settings, status, "blank.jpg")
         {
         }

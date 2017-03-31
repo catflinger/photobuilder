@@ -20,7 +20,7 @@ namespace Photobuilder.Model
         //md5 hash of the source file used to create these images
         protected string hash { get; private set; }
 
-        public DiaryImage(AppSettings settings, BuildStatus status, Photo photo) 
+        public DiaryImage(IDiaryBuilderSettings settings, DiaryBuildStatus status, Photo photo) 
             : base(settings, status, photo.date.ToString("yyyyMMdd") + ".jpg") {
             _photo = photo;
 

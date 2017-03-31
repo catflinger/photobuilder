@@ -71,6 +71,7 @@
             // 
             this.txtFound.Location = new System.Drawing.Point(186, 78);
             this.txtFound.Name = "txtFound";
+            this.txtFound.ReadOnly = true;
             this.txtFound.Size = new System.Drawing.Size(100, 20);
             this.txtFound.TabIndex = 3;
             // 
@@ -78,6 +79,7 @@
             // 
             this.txtProcessed.Location = new System.Drawing.Point(186, 110);
             this.txtProcessed.Name = "txtProcessed";
+            this.txtProcessed.ReadOnly = true;
             this.txtProcessed.Size = new System.Drawing.Size(100, 20);
             this.txtProcessed.TabIndex = 4;
             // 

@@ -9,8 +9,8 @@ namespace Photobuilder.Model
 {
     class DiaryDay
     {
-        private AppSettings _settings;
-        private BuildStatus _bs;
+        private IDiaryBuilderSettings _settings;
+        private DiaryBuildStatus _bs;
 
         //the date that this day object represents.  Note that there can be more than one day object
         //for a given date: see the active property below.
@@ -28,7 +28,7 @@ namespace Photobuilder.Model
 
         public string name { get { return _day.DayOfWeek.ToString(); } }
 
-        public DiaryDay(AppSettings settings, BuildStatus status, DateTime day, bool active)
+        public DiaryDay(IDiaryBuilderSettings settings, DiaryBuildStatus status, DateTime day, bool active)
         {
             _settings = settings;
             _bs = status;
@@ -62,12 +62,12 @@ namespace Photobuilder.Model
                 }
                 else
                 {
-                    image = new BlankImage(_settings, _bs);
+                    image = new DiaryImageBlank(_settings, _bs);
                 }
             }
             else
             {
-                image = new PlaceholderImage(_settings, _bs);
+                image = new DiaryImagePlaceholder(_settings, _bs);
             }
 
             return count;

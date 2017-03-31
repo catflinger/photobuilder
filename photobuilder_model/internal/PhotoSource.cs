@@ -9,13 +9,13 @@ namespace Photobuilder.Model
 {
     class PhotoSource
     {
-        private AppSettings _settings;
+        private IDiaryBuilderSettings _settings;
         private IList<Photo> _photos;
         private DiaryIndex _prevIndex;
 
         public IEnumerable<Photo> photos { get { return _photos; } }
 
-        public PhotoSource(AppSettings settings, DiaryIndex index)
+        public PhotoSource(IDiaryBuilderSettings settings, DiaryIndex index)
         {
             _settings = settings;
             _photos = new List<Photo>();

@@ -9,8 +9,8 @@ namespace Photobuilder.Model
     class DiaryMonth
     {
         private DateTime _firstDayOfMonth;
-        private AppSettings _settings;
-        private BuildStatus _bs;
+        private IDiaryBuilderSettings _settings;
+        private DiaryBuildStatus _bs;
 
         public List<DiaryWeek> weeks = new List<DiaryWeek>();
 
@@ -18,7 +18,7 @@ namespace Photobuilder.Model
 
         public int photoCount { get; private set; }
 
-        public DiaryMonth(AppSettings settings, BuildStatus status, DateTime firstDay)
+        public DiaryMonth(IDiaryBuilderSettings settings, DiaryBuildStatus status, DateTime firstDay)
         {
             _settings = settings;
             _firstDayOfMonth = firstDay;

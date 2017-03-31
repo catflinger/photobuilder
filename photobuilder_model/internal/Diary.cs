@@ -13,21 +13,21 @@ namespace Photobuilder.Model
     /// </summary>
     class Diary
     {
-        private AppSettings _settings;
-        private BuildStatus _bs;
+        private IDiaryBuilderSettings _settings;
+        private DiaryBuildStatus _bs;
         public List<DiaryYear> years { get; private set; }
 
-        private BlankImage _blank;
-        private PlaceholderImage _placeholder;
+        private DiaryImageBlank _blank;
+        private DiaryImagePlaceholder _placeholder;
 
-        public Diary(AppSettings settings, BuildStatus status)
+        public Diary(IDiaryBuilderSettings settings, DiaryBuildStatus status)
         {
             _settings = settings;
             _bs = status;
 
             years = new List<DiaryYear>();
-            _blank = new BlankImage(_settings, _bs);
-            _placeholder = new PlaceholderImage(_settings, _bs);
+            _blank = new DiaryImageBlank(_settings, _bs);
+            _placeholder = new DiaryImagePlaceholder(_settings, _bs);
         }
 
         public void cleanOutputFolders()

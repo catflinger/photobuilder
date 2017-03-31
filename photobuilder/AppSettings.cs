@@ -6,11 +6,6 @@ namespace Photobuilder
 {
     public class AppSettings : ApplicationSettingsBase
     {
-        public string indexFile
-        {
-            get { return String.Format("{0}/diary.json", distFolder); }
-        }
-
         [UserScopedSetting()]
         [DefaultSettingValue(@"C:\CODE\Content\photodiary\source")]
         public string sourceFolder
