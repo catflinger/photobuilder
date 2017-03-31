@@ -24,6 +24,9 @@ namespace Photobuilder
 
         private void FormPhotodiarySettings_Load(object sender, EventArgs e)
         {
+            comboDayOfWeek.DataSource = Enum.GetValues(typeof(DayOfWeek));
+
+            comboDayOfWeek.SelectedItem = _settings.FirstDayOfWeek;
             txtSourceFolder.Text = _settings.sourceFolder;
             txtDistFolder.Text = _settings.distFolder;
             txtThumbWidth.Text = _settings.thumbWidth.ToString();
@@ -85,6 +88,8 @@ namespace Photobuilder
                                 _settings.thumbQuality = (long)nudQualityThumb.Value;
 
                                 _settings.incrementalProcessing = chkIncremental.Checked;
+
+                                _settings.FirstDayOfWeek = (DayOfWeek)Enum.Parse(typeof(DayOfWeek), comboDayOfWeek.SelectedValue.ToString());
 
                                 _settings.Save();
 

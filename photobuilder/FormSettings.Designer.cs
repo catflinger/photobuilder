@@ -50,13 +50,15 @@
             this.txtDistFolder = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnSearchDist = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.comboDayOfWeek = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudQualityThumb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudQualityLarge)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSearchSource
             // 
-            this.btnSearchSource.Location = new System.Drawing.Point(362, 9);
+            this.btnSearchSource.Location = new System.Drawing.Point(390, 9);
             this.btnSearchSource.Name = "btnSearchSource";
             this.btnSearchSource.Size = new System.Drawing.Size(99, 20);
             this.btnSearchSource.TabIndex = 1;
@@ -66,7 +68,7 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(168, 215);
+            this.btnOK.Location = new System.Drawing.Point(213, 246);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 34);
             this.btnOK.TabIndex = 2;
@@ -76,7 +78,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(262, 214);
+            this.btnCancel.Location = new System.Drawing.Point(307, 245);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(70, 35);
             this.btnCancel.TabIndex = 3;
@@ -95,7 +97,7 @@
             // 
             // txtSourceFolder
             // 
-            this.txtSourceFolder.Location = new System.Drawing.Point(118, 9);
+            this.txtSourceFolder.Location = new System.Drawing.Point(146, 9);
             this.txtSourceFolder.Name = "txtSourceFolder";
             this.txtSourceFolder.Size = new System.Drawing.Size(229, 20);
             this.txtSourceFolder.TabIndex = 5;
@@ -115,7 +117,7 @@
             // 
             // txtThumbWidth
             // 
-            this.txtThumbWidth.Location = new System.Drawing.Point(118, 123);
+            this.txtThumbWidth.Location = new System.Drawing.Point(146, 123);
             this.txtThumbWidth.MaxLength = 4;
             this.txtThumbWidth.Name = "txtThumbWidth";
             this.txtThumbWidth.Size = new System.Drawing.Size(38, 20);
@@ -124,7 +126,7 @@
             // lbl3
             // 
             this.lbl3.AutoSize = true;
-            this.lbl3.Location = new System.Drawing.Point(245, 126);
+            this.lbl3.Location = new System.Drawing.Point(273, 126);
             this.lbl3.Name = "lbl3";
             this.lbl3.Size = new System.Drawing.Size(33, 13);
             this.lbl3.TabIndex = 8;
@@ -132,7 +134,7 @@
             // 
             // txtThumbHeight
             // 
-            this.txtThumbHeight.Location = new System.Drawing.Point(191, 123);
+            this.txtThumbHeight.Location = new System.Drawing.Point(219, 123);
             this.txtThumbHeight.MaxLength = 4;
             this.txtThumbHeight.Name = "txtThumbHeight";
             this.txtThumbHeight.Size = new System.Drawing.Size(38, 20);
@@ -141,7 +143,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(169, 126);
+            this.label9.Location = new System.Drawing.Point(197, 126);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(14, 13);
             this.label9.TabIndex = 21;
@@ -150,7 +152,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(334, 128);
+            this.label10.Location = new System.Drawing.Point(362, 128);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(39, 13);
             this.label10.TabIndex = 22;
@@ -158,7 +160,7 @@
             // 
             // nudQualityThumb
             // 
-            this.nudQualityThumb.Location = new System.Drawing.Point(396, 126);
+            this.nudQualityThumb.Location = new System.Drawing.Point(424, 126);
             this.nudQualityThumb.Name = "nudQualityThumb";
             this.nudQualityThumb.Size = new System.Drawing.Size(99, 20);
             this.nudQualityThumb.TabIndex = 23;
@@ -171,7 +173,7 @@
             // chkIncremental
             // 
             this.chkIncremental.AutoSize = true;
-            this.chkIncremental.Location = new System.Drawing.Point(118, 70);
+            this.chkIncremental.Location = new System.Drawing.Point(146, 70);
             this.chkIncremental.Name = "chkIncremental";
             this.chkIncremental.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.chkIncremental.Size = new System.Drawing.Size(197, 17);
@@ -181,7 +183,7 @@
             // 
             // nudQualityLarge
             // 
-            this.nudQualityLarge.Location = new System.Drawing.Point(396, 161);
+            this.nudQualityLarge.Location = new System.Drawing.Point(424, 161);
             this.nudQualityLarge.Name = "nudQualityLarge";
             this.nudQualityLarge.Size = new System.Drawing.Size(99, 20);
             this.nudQualityLarge.TabIndex = 25;
@@ -194,7 +196,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(334, 163);
+            this.label11.Location = new System.Drawing.Point(362, 163);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(39, 13);
             this.label11.TabIndex = 24;
@@ -203,7 +205,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(167, 161);
+            this.label5.Location = new System.Drawing.Point(195, 161);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(56, 13);
             this.label5.TabIndex = 14;
@@ -211,7 +213,7 @@
             // 
             // txtLargeHeight
             // 
-            this.txtLargeHeight.Location = new System.Drawing.Point(118, 158);
+            this.txtLargeHeight.Location = new System.Drawing.Point(146, 158);
             this.txtLargeHeight.MaxLength = 4;
             this.txtLargeHeight.Name = "txtLargeHeight";
             this.txtLargeHeight.Size = new System.Drawing.Size(38, 20);
@@ -228,7 +230,7 @@
             // 
             // txtDistFolder
             // 
-            this.txtDistFolder.Location = new System.Drawing.Point(118, 35);
+            this.txtDistFolder.Location = new System.Drawing.Point(146, 35);
             this.txtDistFolder.Name = "txtDistFolder";
             this.txtDistFolder.Size = new System.Drawing.Size(229, 20);
             this.txtDistFolder.TabIndex = 31;
@@ -244,7 +246,7 @@
             // 
             // btnSearchDist
             // 
-            this.btnSearchDist.Location = new System.Drawing.Point(362, 35);
+            this.btnSearchDist.Location = new System.Drawing.Point(390, 35);
             this.btnSearchDist.Name = "btnSearchDist";
             this.btnSearchDist.Size = new System.Drawing.Size(99, 20);
             this.btnSearchDist.TabIndex = 29;
@@ -252,11 +254,30 @@
             this.btnSearchDist.UseVisualStyleBackColor = true;
             this.btnSearchDist.Click += new System.EventHandler(this.btnSearchDist_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(35, 198);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(87, 13);
+            this.label6.TabIndex = 32;
+            this.label6.Text = "First day of week";
+            // 
+            // comboDayOfWeek
+            // 
+            this.comboDayOfWeek.FormattingEnabled = true;
+            this.comboDayOfWeek.Location = new System.Drawing.Point(146, 190);
+            this.comboDayOfWeek.Name = "comboDayOfWeek";
+            this.comboDayOfWeek.Size = new System.Drawing.Size(121, 21);
+            this.comboDayOfWeek.TabIndex = 33;
+            // 
             // FormSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(523, 273);
+            this.ClientSize = new System.Drawing.Size(608, 316);
+            this.Controls.Add(this.comboDayOfWeek);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.txtDistFolder);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnSearchDist);
@@ -312,5 +333,7 @@
         private System.Windows.Forms.TextBox txtDistFolder;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnSearchDist;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox comboDayOfWeek;
     }
 }
