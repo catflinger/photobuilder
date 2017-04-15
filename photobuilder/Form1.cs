@@ -31,19 +31,6 @@ namespace Photobuilder
             _builder = new DiaryBuilder();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            buttonProcess.Enabled = false;
-            buttonSettings.Enabled = false;
-            backgroundWorker1.RunWorkerAsync();
-        }
-
-        private void buttonSettings_Click(object sender, EventArgs e)
-        {
-            FormSettings form = new FormSettings(_settings);
-            DialogResult result = form.ShowDialog();
-        }
-
         // This event handler is where the actual diary building happens
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -68,7 +55,8 @@ namespace Photobuilder
 
             // Enable the Start button.
             buttonProcess.Enabled = true;
-            buttonSettings.Enabled = true;
+            mnuSettings.Enabled = true;
+            mnuUpload.Enabled = true;
         }
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -78,6 +66,27 @@ namespace Photobuilder
             txtProcessed.Text = result.photosProcessed.ToString();
 
             this.progressBar1.Value = e.ProgressPercentage;
+        }
+
+        private void mnuSettings_Click(object sender, EventArgs e)
+        {
+            FormSettings form = new FormSettings(_settings);
+            DialogResult result = form.ShowDialog();
+        }
+
+        private void mnuUploadLatest_Click(object sender, EventArgs e)
+        {
+            FormUpload form = new FormUpload();
+            form.ShowDialog();
+        }
+
+        private void buttonProcess_Click(object sender, EventArgs e)
+        {
+            buttonProcess.Enabled = false;
+            mnuSettings.Enabled = false;
+            mnuUpload.Enabled = false;
+
+            backgroundWorker1.RunWorkerAsync();
         }
     }
 }

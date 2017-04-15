@@ -19,6 +19,7 @@ namespace Photobuilder.Model
         protected IDiaryBuilderSettings settings { get; private set; }
         protected DiaryBuildStatus status { get; private set; }
         protected string filename { get; private set; }
+        protected bool uploaded { get; set; }
 
         //full path and name for output files
         protected string pathLarge { get { return String.Format("{0}/large/{1}", settings.distFolder, filename); } }
@@ -29,6 +30,7 @@ namespace Photobuilder.Model
             this.settings = settings;
             this.status = status;
             this.filename = filename;
+            this.uploaded = false;
         }
 
         public abstract int makeImages();
@@ -38,7 +40,8 @@ namespace Photobuilder.Model
             return new JObject(
                 new JProperty("large", String.Format("large/{0}", filename)),
                 new JProperty("thumb", String.Format("thumb/{0}", filename)),
-                new JProperty("caption", ""));
+                new JProperty("caption", ""),
+                new JProperty("uploaded", uploaded));
         }
 
         protected void saveImage(Image image, String path, long quality = 100L)

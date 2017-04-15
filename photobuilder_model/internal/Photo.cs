@@ -23,8 +23,11 @@ namespace Photobuilder.Model
         //the md5 hash of the current version of the photo
         public string hashCurrent { get; private set; }
 
-        //the md5 hash of the photo used in the previous build
-        public string hashPrev { get; set; }
+        //the md5 hash of the photo used in the previous build, extracted from the DiaryIndex
+        public string hashPrev { get; private set; }
+
+        //true if the images created from this photo are maked in the index file as having already been uploaded to the server in a previous build
+        public bool uploaded { get; private set; }
 
         //the date that this photo is for
         public DateTime date { get; private set; }
@@ -35,10 +38,9 @@ namespace Photobuilder.Model
             this.date = date;
         }
 
-        public static Photo fromFileInfo(FileInfo fi)
+        public static Photo fromFileInfo(FileInfo fi, DiaryIndex prevIndex)
         {
             Photo result = null;
-            DateTime dt;
 
             //file name is "171230some-other-stuff.jpg" etc for a .jpg file on the 30th december 2017
             Match match = Regex.Match(fi.Name, @"^(?<year>\d{2})(?<month>\d{2})(?<day>\d{2}).*\.(jpg|png|gif)$", RegexOptions.IgnoreCase);
@@ -54,10 +56,18 @@ namespace Photobuilder.Model
                                     @"yyyy/MM/dd",
                                     CultureInfo.CreateSpecificCulture("en-GB"),
                                     DateTimeStyles.None,
-                                    out dt))
+                                    out DateTime dt))
                 {
-                    result = new Photo(fi.FullName, dt);
-                    result.hashCurrent = getMD5Hash(fi.FullName);
+                    result = new Photo(fi.FullName, dt)
+                    {
+                        hashCurrent = getMD5Hash(fi.FullName)
+                    };
+
+                    if (prevIndex != null)
+                    {
+                        result.hashPrev = prevIndex.getDayInfo(result.date).hash;
+                    }
+
                 }
             }
 

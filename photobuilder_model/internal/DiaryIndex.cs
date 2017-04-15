@@ -10,6 +10,14 @@ namespace Photobuilder.Model
 {
     class DiaryIndex
     {
+        public class DayInfo
+        {
+            public string hash { get; internal set; }
+            public bool uploaded { get; internal set; }
+
+            internal DayInfo() {}
+        }
+
         //private DiaryBuilderSettings _settings;
         private JObject _jRoot;
 
@@ -59,9 +67,9 @@ namespace Photobuilder.Model
                 jIndex.ToString(Newtonsoft.Json.Formatting.Indented));
         }
 
-        public string getHashForDay(DateTime date)
+        public DayInfo getDayInfo(DateTime date)
         {
-            string result = null;
+            DayInfo result = null;
 
             if (_jRoot != null)
             {
@@ -88,7 +96,11 @@ namespace Photobuilder.Model
                         JToken photo = day["photo"];
                         if (photo != null)
                         {
-                            result = photo.Value<string>("hash");
+                            result = new DayInfo()
+                            {
+                                hash = photo.Value<string>("hash"),
+                                uploaded = photo.Value<bool?>("uploaded") ?? false
+                            };
                             break;
                         }
                     }

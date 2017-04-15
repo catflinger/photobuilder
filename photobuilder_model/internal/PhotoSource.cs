@@ -42,15 +42,11 @@ namespace Photobuilder.Model
             //add all the files in this folder
             foreach (FileInfo fi in current.GetFiles())
             {
-                Photo photo = Photo.fromFileInfo(fi);
+                Photo photo = Photo.fromFileInfo(fi, _prevIndex);
 
                 //check that this was a suitably named file
                 if (photo != null)
                 {
-                    if (_prevIndex != null)
-                    {
-                        photo.hashPrev = _prevIndex.getHashForDay(photo.date);
-                    }
                     _photos.Add(photo);
                     _status.foundPhoto();
                 }

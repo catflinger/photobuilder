@@ -11,17 +11,20 @@ using System.Threading.Tasks;
 
 namespace Photobuilder.Model
 {
+    //This class represents a photo that has been process for the diary,
+    //it is created form a Photo and a previous DiaryIndex file.
+    //It may be confusing that some values are found in both the DiaryImage and the Photo.  The Photo
+    //contains information about the state of the system before a processing the run was begun,
+    //the DiaryImage contains the values after the processing run is complete.
 
     class DiaryImage : DiaryImageBase
     {
         private Photo _photo;
         public bool skipProcessing { get; private set; }
 
-        //md5 hash of the source file used to create these images
-        protected string hash { get; private set; }
-
         public DiaryImage(IDiaryBuilderSettings settings, DiaryBuildStatus status, Photo photo) 
             : base(settings, status, photo.date.ToString("yyyyMMdd") + ".jpg") {
+
             _photo = photo;
 
             //first see if we can use a cached version from the previous build
@@ -35,8 +38,8 @@ namespace Photobuilder.Model
         {
             JObject result = base.toJson();
 
-            result.Add(
-                new JProperty("hash", hash));
+            //store the most recent version of the hash
+            result.Add(new JProperty("hash", _photo.hashCurrent));
 
             return result;
         }
@@ -49,8 +52,8 @@ namespace Photobuilder.Model
             if (skipProcessing)
             {
                 //original has not changed, two processed files are present
-                //skip this photo and save the old hash value
-                hash = _photo.hashPrev;
+                //skip this photo and preserve the current status of uploaded
+                uploaded = _photo.uploaded;
             }
             else
             {
@@ -68,7 +71,8 @@ namespace Photobuilder.Model
                 Bitmap large = resizeImage(source, settings.largeHeight);
                 saveImage(large, pathLarge, settings.largeQuality);
 
-                hash = Photo.getMD5Hash(_photo.path);
+                //mark the newly-created image as not uploaded
+                uploaded = false;
 
                 count = 1;
                 status.photoProcessed();
