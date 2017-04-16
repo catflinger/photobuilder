@@ -65,7 +65,9 @@ namespace Photobuilder.Model
 
                     if (prevIndex != null)
                     {
-                        result.hashPrev = prevIndex.getDayInfo(result.date).hash;
+                        DiaryIndex.DayInfo dayInfo = prevIndex.getDayInfo(result.date);
+                        result.hashPrev = dayInfo.hash;
+                        result.uploaded = dayInfo.uploaded;
                     }
 
                 }

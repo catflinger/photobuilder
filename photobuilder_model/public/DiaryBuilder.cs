@@ -44,7 +44,7 @@ namespace Photobuilder.Model
             diary.makeImages(source.photos);
 
             //create and save the index file
-            DiaryIndex.saveIndex(settings, diary);
+            DiaryIndex.createIndexFileFromDiary(settings, diary);
 
             buildStatus.finished();
         }

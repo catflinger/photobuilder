@@ -41,9 +41,9 @@
             this.mnuSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuUpload = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuUploadLatest = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMarkAll = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuClearAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuUploadLatest = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -154,24 +154,26 @@
             this.mnuUpload.Size = new System.Drawing.Size(57, 20);
             this.mnuUpload.Text = "Upload";
             // 
-            // mnuMarkAll
-            // 
-            this.mnuMarkAll.Name = "mnuMarkAll";
-            this.mnuMarkAll.Size = new System.Drawing.Size(204, 22);
-            this.mnuMarkAll.Text = "Mark all as uploaded";
-            // 
-            // mnuClearAll
-            // 
-            this.mnuClearAll.Name = "mnuClearAll";
-            this.mnuClearAll.Size = new System.Drawing.Size(204, 22);
-            this.mnuClearAll.Text = "Mark all as not uploaded";
-            // 
             // mnuUploadLatest
             // 
             this.mnuUploadLatest.Name = "mnuUploadLatest";
             this.mnuUploadLatest.Size = new System.Drawing.Size(204, 22);
             this.mnuUploadLatest.Text = "Upload images";
             this.mnuUploadLatest.Click += new System.EventHandler(this.mnuUploadLatest_Click);
+            // 
+            // mnuMarkAll
+            // 
+            this.mnuMarkAll.Name = "mnuMarkAll";
+            this.mnuMarkAll.Size = new System.Drawing.Size(204, 22);
+            this.mnuMarkAll.Text = "Mark all as uploaded";
+            this.mnuMarkAll.Click += new System.EventHandler(this.mnuMarkAll_Click);
+            // 
+            // mnuClearAll
+            // 
+            this.mnuClearAll.Name = "mnuClearAll";
+            this.mnuClearAll.Size = new System.Drawing.Size(204, 22);
+            this.mnuClearAll.Text = "Mark all as not uploaded";
+            this.mnuClearAll.Click += new System.EventHandler(this.mnuClearAll_Click);
             // 
             // Form1
             // 

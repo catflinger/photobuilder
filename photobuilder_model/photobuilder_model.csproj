@@ -47,6 +47,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="internal\Diary.cs" />
     <Compile Include="public\DiaryBuilder.cs" />
+    <Compile Include="public\DiaryUploader.cs" />
     <Compile Include="public\IDiaryBuilderSettings.cs" />
     <Compile Include="public\DiaryBuildStatus.cs" />
     <Compile Include="internal\DiaryDay.cs" />

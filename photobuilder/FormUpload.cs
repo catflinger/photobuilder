@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Photobuilder.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,24 +14,30 @@ namespace Photobuilder
 {
     public partial class FormUpload : Form
     {
-        private enum ProcessingState
+        private enum ButtonState
         {
             processing,
             cancelling,
             finished
         }
-        private ProcessingState state;
+        private ButtonState buttonState;
+
+        private DiaryUploader uploader;
+        private BuildStatus uploadStatus;
 
         public FormUpload()
         {
             InitializeComponent();
         }
 
+        public AppSettings settings { get; set; }
 
         private void FormUpload_Load(object sender, EventArgs e)
         {
             //kick of the upload automatically
-            state = ProcessingState.processing;
+            uploader = new DiaryUploader();
+            uploadStatus = new BuildStatus(backgroundWorker1);
+            buttonState = ButtonState.processing;
             button1.Text = "Cancel";
             button1.Enabled = true;
 
@@ -40,19 +47,19 @@ namespace Photobuilder
 
         private void button1_Click(object sender, EventArgs e)
         {
-            switch (state)
+            switch (buttonState)
             {
-                case ProcessingState.finished:
+                case ButtonState.finished:
                     Close();
                     break;
 
-                case ProcessingState.cancelling:
+                case ButtonState.cancelling:
                     //do nothing
                     break;
 
-                case ProcessingState.processing:
+                case ButtonState.processing:
                     //cancel the operation
-                    state = ProcessingState.cancelling;
+                    buttonState = ButtonState.cancelling;
                     button1.Text = "Cancelling...";
                     button1.Enabled = false;
 
@@ -65,19 +72,40 @@ namespace Photobuilder
         {
             button1.Text = "Close";
             button1.Enabled = true;
-            state = ProcessingState.finished;
+            buttonState = ButtonState.finished;
 
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             //run the task
-            Thread.Sleep(3000);
+            uploader.uploadDiary(new BuildSettings(settings), uploadStatus);
         }
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             //update the progress
+            BuildResult result = (BuildResult)e.UserState;
+
+            textTotal.Text = result.imagesFound.ToString();
+            textToUpload.Text = result.imagesToUpload.ToString();
+            textUploaded.Text = result.imagesUploaded.ToString();
+            labelCurrentFile.Text = result.currentFile;
+
+            //check if the user has requested to cancel the operation
+            if (backgroundWorker1.CancellationPending)
+            {
+                uploadStatus.cancelOperation();
+            }
+
+            if (result.buildState == BuildResult.States.Uploading && result.imagesToUpload > 0)
+            {
+                progressBar1.Value = (100 * result.imagesUploaded) / result.imagesToUpload;
+            }
+            else
+            {
+                progressBar1.Value = 0;
+            }
         }
     }
 }

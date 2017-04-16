@@ -8,12 +8,19 @@
             Initialising,
             Scanning,
             Processing,
+            Uploading,
             Finished
         }
 
         public int photosFound { get; internal set; }
         public int photosToProcess { get; internal set; }
         public int photosProcessed { get; internal set; }
+
+        public int imagesFound { get; internal set; }
+        public int imagesToUpload { get; internal set; }
+        public int imagesUploaded { get; internal set; }
+
+        public string currentFile { get; internal set; }
 
         public States buildState { get; internal set; }
     }
@@ -22,17 +29,24 @@
     {
         private BuildResult _results;
         public BuildResult result => _results;
+        internal bool cancel { get; private set; }
 
         public DiaryBuildStatus()
         {
             _results = new BuildResult();
             _results.buildState = BuildResult.States.Idle;
+            cancel = false;
         }
 
         public void reset()
         {
             _results = new BuildResult();
             reportProgress();
+        }
+
+        public void cancelOperation()
+        {
+            cancel = true;
         }
 
         protected virtual void reportProgress()
@@ -64,9 +78,17 @@
             reportProgress();
         }
 
+        internal void uploading(string filename)
+        {
+            _results.buildState = BuildResult.States.Uploading;
+            _results.currentFile = filename;
+            reportProgress();
+        }
+
         internal void finished()
         {
             _results.buildState = BuildResult.States.Finished;
+            _results.currentFile = "";
             reportProgress();
         }
 
@@ -88,6 +110,23 @@
             reportProgress();
         }
 
+        internal void foundImage()
+        {
+            _results.imagesFound++;
+            reportProgress();
+        }
+
+        internal void foundImageToUpload()
+        {
+            _results.imagesToUpload++;
+            reportProgress();
+        }
+
+        internal void uploadedImage()
+        {
+            _results.imagesUploaded++;
+            reportProgress();
+        }
 
     }
 }

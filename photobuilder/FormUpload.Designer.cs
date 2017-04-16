@@ -31,13 +31,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textTotal = new System.Windows.Forms.TextBox();
+            this.textToUpload = new System.Windows.Forms.TextBox();
+            this.textUploaded = new System.Windows.Forms.TextBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.labelCurrentFile = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -54,39 +55,39 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(28, 48);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(87, 13);
+            this.label2.Size = new System.Drawing.Size(88, 13);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Photos to upload";
+            this.label2.Text = "Images to upload";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(28, 78);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(87, 13);
+            this.label3.Size = new System.Drawing.Size(88, 13);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Photos uploaded";
+            this.label3.Text = "Images uploaded";
             // 
-            // textBox1
+            // textTotal
             // 
-            this.textBox1.Location = new System.Drawing.Point(138, 18);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 3;
+            this.textTotal.Location = new System.Drawing.Point(138, 18);
+            this.textTotal.Name = "textTotal";
+            this.textTotal.Size = new System.Drawing.Size(100, 20);
+            this.textTotal.TabIndex = 3;
             // 
-            // textBox2
+            // textToUpload
             // 
-            this.textBox2.Location = new System.Drawing.Point(138, 45);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 4;
+            this.textToUpload.Location = new System.Drawing.Point(138, 45);
+            this.textToUpload.Name = "textToUpload";
+            this.textToUpload.Size = new System.Drawing.Size(100, 20);
+            this.textToUpload.TabIndex = 4;
             // 
-            // textBox3
+            // textUploaded
             // 
-            this.textBox3.Location = new System.Drawing.Point(138, 73);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 5;
+            this.textUploaded.Location = new System.Drawing.Point(138, 73);
+            this.textUploaded.Name = "textUploaded";
+            this.textUploaded.Size = new System.Drawing.Size(100, 20);
+            this.textUploaded.TabIndex = 5;
             // 
             // backgroundWorker1
             // 
@@ -98,7 +99,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(138, 112);
+            this.progressBar1.Location = new System.Drawing.Point(138, 168);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(287, 14);
             this.progressBar1.TabIndex = 6;
@@ -106,7 +107,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(28, 112);
+            this.label4.Location = new System.Drawing.Point(28, 168);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(48, 13);
             this.label4.TabIndex = 7;
@@ -114,7 +115,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(138, 143);
+            this.button1.Location = new System.Drawing.Point(138, 124);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 8;
@@ -122,17 +123,27 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // labelCurrentFile
+            // 
+            this.labelCurrentFile.AutoEllipsis = true;
+            this.labelCurrentFile.Location = new System.Drawing.Point(138, 100);
+            this.labelCurrentFile.Name = "labelCurrentFile";
+            this.labelCurrentFile.Size = new System.Drawing.Size(287, 21);
+            this.labelCurrentFile.TabIndex = 9;
+            this.labelCurrentFile.Text = "file currently uploading...";
+            // 
             // FormUpload
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(444, 187);
+            this.Controls.Add(this.labelCurrentFile);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textUploaded);
+            this.Controls.Add(this.textToUpload);
+            this.Controls.Add(this.textTotal);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -149,12 +160,13 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textTotal;
+        private System.Windows.Forms.TextBox textToUpload;
+        private System.Windows.Forms.TextBox textUploaded;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label labelCurrentFile;
     }
 }

@@ -77,6 +77,7 @@ namespace Photobuilder
         private void mnuUploadLatest_Click(object sender, EventArgs e)
         {
             FormUpload form = new FormUpload();
+            form.settings = _settings;
             form.ShowDialog();
         }
 
@@ -87,6 +88,24 @@ namespace Photobuilder
             mnuUpload.Enabled = false;
 
             backgroundWorker1.RunWorkerAsync();
+        }
+
+        private void mnuMarkAll_Click(object sender, EventArgs e)
+        {
+            DiaryUploader uploader = new DiaryUploader();
+
+            uploader.markAllAsUploaded(new BuildSettings(_settings));
+
+            MessageBox.Show("Done.");
+        }
+
+        private void mnuClearAll_Click(object sender, EventArgs e)
+        {
+            DiaryUploader uploader = new DiaryUploader();
+
+            uploader.markAllAsNotUploaded(new BuildSettings(_settings));
+
+            MessageBox.Show("Done.");
         }
     }
 }
