@@ -35,7 +35,7 @@ namespace Photobuilder
         private void FormUpload_Load(object sender, EventArgs e)
         {
             //kick of the upload automatically
-            uploader = new DiaryUploader();
+            uploader = new DiaryUploader(new BuildSettings(settings));
             uploadStatus = new BuildStatus(backgroundWorker1);
             buttonState = ButtonState.processing;
             button1.Text = "Cancel";
@@ -79,7 +79,7 @@ namespace Photobuilder
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             //run the task
-            uploader.uploadDiary(new BuildSettings(settings), uploadStatus);
+            uploader.uploadDiary(uploadStatus);
         }
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)

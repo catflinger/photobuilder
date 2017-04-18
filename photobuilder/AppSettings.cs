@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
+using System.Security.Cryptography;
 using System.Drawing;
+using System.Text;
 
 namespace Photobuilder
 {
@@ -87,6 +89,60 @@ namespace Photobuilder
             get { return (string)this["PlaceholderColor"]; }
             set { this["PlaceholderColor"] = value; }
         }
+        [UserScopedSetting()]
+        [DefaultSettingValue("ftp.server.com")]
+        public string FtpHost
+        {
+            get { return (string)this["FtpHost"]; }
+            set { this["FtpHost"] = value; }
+        }
+        [UserScopedSetting()]
+        [DefaultSettingValue("somefolder/otherfolder")]
+        public string FtpPath
+        {
+            get { return (string)this["FtpPath"]; }
+            set { this["FtpPath"] = value; }
+        }
+        [UserScopedSetting()]
+        [DefaultSettingValue("username")]
+        public string FtpUser
+        {
+            get { return (string)this["FtpUser"]; }
+            set { this["FtpUser"] = value; }
+        }
+        [UserScopedSetting()]
+        [DefaultSettingValue("*****")]
+        public string FtpPassword
+        {
+            get { return decrypt((string)this["FtpPassword"]); }
+            set { this["FtpPassword"] = encrypt(value); }
+        }
 
+        private byte[] salt = new byte[] { 0x01, 0xFF, 0x6E };
+
+        private string encrypt(string source) {
+
+            byte[] encryptedData = ProtectedData.Protect(
+                Encoding.Unicode.GetBytes(source),
+                salt,
+                DataProtectionScope.CurrentUser);
+
+            return Convert.ToBase64String(encryptedData);
+        }
+        private string decrypt(string source)
+        {
+            try
+            {
+                byte[] decryptedData = ProtectedData.Unprotect(
+                    Convert.FromBase64String(source),
+                    salt,
+                    DataProtectionScope.CurrentUser);
+                return Encoding.Unicode.GetString(decryptedData);
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 }

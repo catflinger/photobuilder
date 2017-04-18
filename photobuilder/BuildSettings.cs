@@ -38,5 +38,13 @@ namespace Photobuilder
         public string blankColor => appSettings.BlankColor;
 
         public string placeholderColor => appSettings.PlaceholderColor;
+
+        public string ftpHost => appSettings.FtpHost;
+
+        public string ftpPath => appSettings.FtpPath;
+
+        public string ftpUsername => appSettings.FtpUser;
+
+        public string ftpPassword => appSettings.FtpPassword;
     }
 }

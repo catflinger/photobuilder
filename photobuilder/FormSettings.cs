@@ -36,6 +36,11 @@ namespace Photobuilder
             nudQualityLarge.Value = _settings.largeQuality;
             chkIncremental.Checked = _settings.incrementalProcessing;
 
+            txtFtpHost.Text = _settings.FtpHost;
+            txtFtpPath.Text = _settings.FtpPath;
+            txtFtpUser.Text = _settings.FtpUser;
+            txtFtpPassword.Text = _settings.FtpPassword;
+
             Color color = ColorTranslator.FromHtml(_settings.BlankColor);
             panelBlank.BackColor = color;
 
@@ -99,6 +104,11 @@ namespace Photobuilder
 
                                 _settings.BlankColor = ColorTranslator.ToHtml(panelBlank.BackColor);
                                 _settings.PlaceholderColor = ColorTranslator.ToHtml(panelPlaceholder.BackColor);
+
+                                _settings.FtpHost = txtFtpHost.Text;
+                                _settings.FtpPath = txtFtpPath.Text;
+                                _settings.FtpUser = txtFtpUser.Text;
+                                _settings.FtpPassword = txtFtpPassword.Text;
 
                                 _settings.Save();
 

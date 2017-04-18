@@ -92,18 +92,18 @@ namespace Photobuilder
 
         private void mnuMarkAll_Click(object sender, EventArgs e)
         {
-            DiaryUploader uploader = new DiaryUploader();
+            DiaryUploader uploader = new DiaryUploader(new BuildSettings(_settings));
 
-            uploader.markAllAsUploaded(new BuildSettings(_settings));
+            uploader.markAllAsUploaded();
 
             MessageBox.Show("Done.");
         }
 
         private void mnuClearAll_Click(object sender, EventArgs e)
         {
-            DiaryUploader uploader = new DiaryUploader();
+            DiaryUploader uploader = new DiaryUploader(new BuildSettings(_settings));
 
-            uploader.markAllAsNotUploaded(new BuildSettings(_settings));
+            uploader.markAllAsNotUploaded();
 
             MessageBox.Show("Done.");
         }

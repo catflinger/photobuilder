@@ -29,5 +29,13 @@ namespace Photobuilder.Model
         string blankColor { get; }
 
         string placeholderColor { get; }
+
+        string ftpHost { get; }
+
+        string ftpPath { get; }
+
+        string ftpUsername { get; }
+
+        string ftpPassword { get; }
     }
 }
