@@ -15,7 +15,9 @@ namespace Photobuilder
             this.appSettings = appSettings;
         }
 
-        public string indexFile => String.Format("{0}/diary.json", appSettings.distFolder);
+        public string indexFilename => "diary.json";
+
+        public string indexFilepath => String.Format("{0}/diary.json", appSettings.distFolder);
 
         public string sourceFolder => appSettings.sourceFolder;
 

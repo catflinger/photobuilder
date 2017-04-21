@@ -14,7 +14,7 @@ namespace Photobuilder.Model
         {
             return new DiaryIndex.DayInfo()
             {
-                hash = jo.Value<string>("hash"),
+                hash = jo["photo"].Value<string>("hash"),
                 uploaded = jo["photo"].Value<bool>("uploaded"),
                 hasContent = jo.Value<bool>("hasContent"),
                 thumb = jo["photo"].Value<string>("thumb"),
@@ -48,7 +48,7 @@ namespace Photobuilder.Model
             try
             {
                 _jRoot = JObject.Parse(
-                    File.ReadAllText(settings.indexFile));
+                    File.ReadAllText(settings.indexFilepath));
             }
             catch
             {
@@ -60,7 +60,7 @@ namespace Photobuilder.Model
         {
             //save it back to disk
             File.WriteAllText(
-                _settings.indexFile,
+                _settings.indexFilepath,
                 _jRoot.ToString(Newtonsoft.Json.Formatting.Indented));
         }
 
@@ -90,7 +90,7 @@ namespace Photobuilder.Model
 
             //save it all to disk
             File.WriteAllText(
-                settings.indexFile,
+                settings.indexFilepath,
                 jIndex.ToString(Newtonsoft.Json.Formatting.Indented));
         }
 

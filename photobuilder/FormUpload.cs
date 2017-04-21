@@ -74,6 +74,7 @@ namespace Photobuilder
             button1.Enabled = true;
             buttonState = ButtonState.finished;
 
+            MessageBox.Show("Finished uploading.");
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)

@@ -117,8 +117,10 @@
             // 
             this.txtFtpPassword.Location = new System.Drawing.Point(77, 105);
             this.txtFtpPassword.Name = "txtFtpPassword";
+            this.txtFtpPassword.PasswordChar = '*';
             this.txtFtpPassword.Size = new System.Drawing.Size(121, 20);
             this.txtFtpPassword.TabIndex = 42;
+            this.txtFtpPassword.UseSystemPasswordChar = true;
             // 
             // txtFtpUser
             // 

@@ -6,7 +6,11 @@ namespace Photobuilder.Model
 {
     public interface IDiaryBuilderSettings
     {
-        string indexFile { get; }
+        //the name to use for the uploaded index
+        string indexFilename { get; }
+
+        //full path and file name of the local index
+        string indexFilepath { get; }
 
         string sourceFolder { get; }
 

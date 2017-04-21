@@ -55,10 +55,7 @@ namespace Photobuilder.Model
             foreach (DiaryIndex.DayInfo day in diary.getDayInfo().Where(d => d.hasContent && !d.uploaded))
             {
                 //first check if there is a cancel pending
-                if (status.cancel)
-                {
-                    break;
-                }
+                if (status.cancel) { break; }
 
                 //do the uploads
                 status.uploading(day.large);
@@ -66,6 +63,8 @@ namespace Photobuilder.Model
                 {
                     status.uploadedImage();
                 }
+
+                if (status.cancel) { break; }
 
                 status.uploading(day.thumb);
                 if (uploadFile(day.thumb))
@@ -77,8 +76,15 @@ namespace Photobuilder.Model
                 diary.markAsUploaded(day.date);
             }
 
-            diary.save();
+            if (!status.cancel)
+            {
+                //save the diary index locally
+                diary.save();
 
+                //upload a copy to the server
+                status.uploading(settings.indexFilename);
+                uploadFile(settings.indexFilename);
+            }
             status.finished();
         }
 
@@ -88,13 +94,8 @@ namespace Photobuilder.Model
 
             try
             {
-                //string host = "www.drurys.org";
-                //string destPath = "drurysor/photodiary.drurys.org/wwwroot/assets/dist";
-                //string username = "drurysor";
-                //string password = "********";
-
                 string srcPath = String.Format("{0}/{1}", settings.distFolder, subpath);
-                string uri = String.Format("fttp://{0}/{1}/{2}", settings.ftpHost, settings.ftpPath, subpath);
+                string uri = String.Format("ftp://{0}/{1}/{2}", settings.ftpHost, settings.ftpPath, subpath);
 
                 FtpWebRequest request = (FtpWebRequest)WebRequest.Create(uri);
 
