@@ -36,6 +36,8 @@ namespace Photobuilder.Model
         {
             this.path = path;
             this.date = date;
+            hashPrev = null;
+            uploaded = false;
         }
 
         public static Photo fromFileInfo(FileInfo fi, DiaryIndex prevIndex)
@@ -66,8 +68,11 @@ namespace Photobuilder.Model
                     if (prevIndex != null)
                     {
                         DiaryIndex.DayInfo dayInfo = prevIndex.getDayInfo(result.date);
-                        result.hashPrev = dayInfo.hash;
-                        result.uploaded = dayInfo.uploaded;
+                        if (dayInfo != null)
+                        {
+                            result.hashPrev = dayInfo.hash;
+                            result.uploaded = dayInfo.uploaded;
+                        }
                     }
 
                 }

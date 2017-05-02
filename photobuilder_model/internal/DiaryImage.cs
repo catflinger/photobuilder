@@ -29,7 +29,8 @@ namespace Photobuilder.Model
 
             //first see if we can use a cached version from the previous build
             skipProcessing = settings.incrementalProcessing &&
-                            _photo.hashCurrent == _photo.hashPrev &&
+                            _photo.hashPrev != null &&
+                            photo.hashPrev == _photo.hashCurrent &&
                             File.Exists(pathLarge) &&
                             File.Exists(pathThumb);
         }
