@@ -41,12 +41,15 @@ namespace Photobuilder.Model
             //scan the diary for images
             foreach (DiaryIndex.DayInfo day in diary.getDayInfo())
             {
-                status.foundImage();
-                if (!day.uploaded)
+                if (day.hasContent)
                 {
-                    //two images per day, one large and one thumbnail
-                    status.foundImageToUpload();
-                    status.foundImageToUpload();
+                    status.foundImage();
+                    if (!day.uploaded)
+                    {
+                        //two images per day, one large and one thumbnail
+                        status.foundImageToUpload();
+                        status.foundImageToUpload();
+                    }
                 }
             }
 
