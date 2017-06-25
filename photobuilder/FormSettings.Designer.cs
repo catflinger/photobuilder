@@ -226,6 +226,7 @@
             this.buttonPlaceholder.TabIndex = 66;
             this.buttonPlaceholder.Text = "...";
             this.buttonPlaceholder.UseVisualStyleBackColor = true;
+            this.buttonPlaceholder.Click += new System.EventHandler(this.buttonPlaceholder_Click);
             // 
             // label8
             // 
@@ -251,6 +252,7 @@
             this.buttonBlank.TabIndex = 63;
             this.buttonBlank.Text = "...";
             this.buttonBlank.UseVisualStyleBackColor = true;
+            this.buttonBlank.Click += new System.EventHandler(this.buttonBlank_Click);
             // 
             // label7
             // 

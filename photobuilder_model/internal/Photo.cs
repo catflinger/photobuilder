@@ -49,6 +49,7 @@ namespace Photobuilder.Model
 
             if (match.Success)
             {
+                DateTime dt;
                 //try and make a date out of the first six characters of the filename
                 if (DateTime.TryParseExact(
                                     String.Format("20{0}/{1}/{2}",
@@ -58,7 +59,7 @@ namespace Photobuilder.Model
                                     @"yyyy/MM/dd",
                                     CultureInfo.CreateSpecificCulture("en-GB"),
                                     DateTimeStyles.None,
-                                    out DateTime dt))
+                                    out dt))
                 {
                     result = new Photo(fi.FullName, dt)
                     {
